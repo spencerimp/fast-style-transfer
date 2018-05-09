@@ -1,4 +1,5 @@
 ## Fast Style Transfer in [TensorFlow](https://github.com/tensorflow/tensorflow)
+# This is a Clone
 
 Add styles from famous paintings to any photo in a fraction of a second! [You can even style videos!](#video-stylization)
 
@@ -54,8 +55,38 @@ We added styles from various paintings to a photo of Chicago. Click on thumbnail
 Our implementation uses TensorFlow to train a fast style transfer network. We use roughly the same transformation network as described in Johnson, except that batch normalization is replaced with Ulyanov's instance normalization, and the scaling/offset of the output `tanh` layer is slightly different. We use a loss function close to the one described in Gatys, using VGG19 instead of VGG16 and typically using "shallower" layers than in Johnson's implementation (e.g. we use `relu1_1` rather than `relu1_2`). Empirically, this results in larger scale style features in transformations.
 
 ## Documentation
+### Requirement setup using Docker
+
+This document assumes you run the entire procedure with gpu.
+
+Install the packages
+
+```
+sh install_cuda.sh
+sh install_docker.sh
+```
+
+Create the Docker image
+
+```
+sudo nvidia-docker build -t tf-gpu .
+```
+
+we will run all the programs in the Docker.
+
+```
+sudo nvidia-docker run -it -v `pwd`:/home/fast-neural-tranfer tf-gpu
+```
+
+Download the dataset
+
+```
+sh setup.sh
+```
+
 ### Training Style Transfer Networks
-Use `style.py` to train a new style transfer network. Run `python style.py` to view all the possible parameters. Training takes 4-6 hours on a Maxwell Titan X. [More detailed documentation here](docs.md#stylepy). **Before you run this, you should run `setup.sh`**. Example usage:
+Use `style.py` to train a new style transfer network. Run `python style.py` to view all the possible parameters. Training takes 4-6 hours on a Maxwell Titan X. [More detailed documentation here](docs.md#stylepy). 
+Example usage:
 
     python style.py --style path/to/style/img.jpg \
       --checkpoint-dir checkpoint/path \
@@ -80,15 +111,6 @@ Use `transform_video.py` to transfer style into a video. Run `python transform_v
       --out-path out/video.mp4 \
       --device /gpu:0 \
       --batch-size 4
-
-### Requirements
-You will need the following to run the above:
-- TensorFlow 0.11.0
-- Python 2.7.9, Pillow 3.4.2, scipy 0.18.1, numpy 1.11.2
-- If you want to train (and don't want to wait for 4 months):
-  - A decent GPU
-  - All the required NVIDIA software to run TF on a GPU (cuda, etc)
-- ffmpeg 3.1.3 if you want to stylize video
 
 ### Citation
 ```

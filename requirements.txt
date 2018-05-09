@@ -1,1 +1,4 @@
+numpy
+scipy
+moviepy
 tensorflow-gpu==1.8

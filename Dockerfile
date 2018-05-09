@@ -45,6 +45,9 @@ RUN pip --no-cache-dir install \
         && \
     python -m ipykernel.kernelspec
 
-RUN ln -s -f /usr/bin/python3 /usr/bin/python#
+COPY requirements.txt .
+RUN pip install -r requirements.txt \
+    imageio_download_bin
+RUN ln -s -f /usr/bin/python3 /usr/bin/python
 WORKDIR /home/fast-style-transfer
 
