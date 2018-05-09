@@ -18,8 +18,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         libpng12-dev \
         libzmq3-dev \
         pkg-config \
-        python \
-        python-dev \
+        python3-dev \
+	python3-pip \
         rsync \
         software-properties-common \
         unzip \
@@ -28,26 +28,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-RUN curl -O https://bootstrap.pypa.io/get-pip.py && \
-    python get-pip.py && \
-    rm get-pip.py
-
-RUN pip --no-cache-dir install \
-        Pillow \
-        h5py \
-        ipykernel \
-        jupyter \
-        matplotlib \
-        numpy \
-        pandas \
-        scipy \
-        sklearn \
-        && \
-    python -m ipykernel.kernelspec
-
 COPY requirements.txt .
-RUN pip install -r requirements.txt \
+RUN pip3 install -U setuptools && \
+    pip3 install -r requirements.txt && \
     imageio_download_bin
-RUN ln -s -f /usr/bin/python3 /usr/bin/python
 WORKDIR /home/fast-style-transfer
 

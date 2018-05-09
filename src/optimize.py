@@ -12,7 +12,7 @@ DEVICES = 'CUDA_VISIBLE_DEVICES'
 # np arr, np arr
 def optimize(content_targets, style_target, content_weight, style_weight,
              tv_weight, vgg_path, epochs=2, print_iterations=1000,
-             batch_size=4, save_path='saver/fns.ckpt', slow=False,
+             batch_size=4, save_path='saver/model.ckpt', slow=False,
              learning_rate=1e-3, debug=False):
     if slow:
         batch_size = 1
@@ -92,8 +92,8 @@ def optimize(content_targets, style_target, content_weight, style_weight,
         sess.run(tf.global_variables_initializer())
         import random
         uid = random.randint(1, 100)
-        print("UID: %s" % uid)
         for epoch in range(epochs):
+            print("Epoch ", epoch)
             num_examples = len(content_targets)
             iterations = 0
             while iterations * batch_size < num_examples:

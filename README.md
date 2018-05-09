@@ -88,7 +88,7 @@ sh setup.sh
 Use `style.py` to train a new style transfer network. Run `python style.py` to view all the possible parameters. Training takes 4-6 hours on a Maxwell Titan X. [More detailed documentation here](docs.md#stylepy). 
 Example usage:
 
-    python style.py --style path/to/style/img.jpg \
+    python3 style.py --style path/to/style/img.jpg \
       --checkpoint-dir checkpoint/path \
       --test path/to/test/img.jpg \
       --test-dir path/to/test/dir \
@@ -99,7 +99,7 @@ Example usage:
 ### Evaluating Style Transfer Networks
 Use `evaluate.py` to evaluate a style transfer network. Run `python evaluate.py` to view all the possible parameters. Evaluation takes 100 ms per frame (when batch size is 1) on a Maxwell Titan X. [More detailed documentation here](docs.md#evaluatepy). Takes several seconds per frame on a CPU. **Models for evaluation are [located here](https://drive.google.com/drive/folders/0B9jhaT37ydSyRk9UX0wwX3BpMzQ?usp=sharing)**. Example usage:
 
-    python evaluate.py --checkpoint path/to/style/model.ckpt \
+    python3 evaluate.py --checkpoint path/to/style/model.ckpt \
       --in-path dir/of/test/imgs/ \
       --out-path dir/for/results/
 
